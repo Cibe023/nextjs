@@ -1,6 +1,9 @@
 import YouTubeCard from "./YouTubeCard";
 import PinterestCard from "./PinterestCard";
 import MapCard from "./MapCard";
+import ApiOne from "./ApiOne";
+import ApiTwo from "./ApiTwo";
+import ApiThree from "./ApiThree";
 
 export default function Page() {
   return (
@@ -35,10 +38,20 @@ export default function Page() {
         />
       </div>
       
-<MapCard
-  title="Templo de San Agustín"
-  mapUrl="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1762.9238991506766!2d-101.19876750635979!3d20.56740140181452!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842c850dd6958ab9%3A0x7781af26707dc3c9!2sTemplo%20de%20San%20Agust%C3%ADn!5e0!3m2!1ses!2smx!4v1749754843876!5m2!1ses!2smx"
-/>
+      <MapCard
+        title="Templo de San Agustín"
+        mapUrl="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1762.9238991506766!2d-101.19876750635979!3d20.56740140181452!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842c850dd6958ab9%3A0x7781af26707dc3c9!2sTemplo%20de%20San%20Agust%C3%ADn!5e0!3m2!1ses!2smx!4v1749754843876!5m2!1ses!2smx"
+      />
+
+      {/* Línea divisoria general */}
+      <hr className="my-8 border-gray-400 w-full max-w-4xl" />
+
+      {/* Sección de APIs */}
+      <div className="flex flex-col gap-6 w-full items-center">
+        <ApiOne />
+        <ApiTwo />
+        <ApiThree />
+      </div>
     </div>
   );
 }

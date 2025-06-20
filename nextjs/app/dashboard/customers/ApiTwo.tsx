@@ -1,0 +1,86 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
+
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+  image: string;
+}
+
+export default function ApiTwo() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [current, setCurrent] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("https://fakestoreapi.com/products")
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data);
+        setLoading(false);
+      });
+  }, []);
+
+  const handlePrev = () => {
+    setCurrent((prev) => (prev === 0 ? products.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setCurrent((prev) => (prev === products.length - 1 ? 0 : prev + 1));
+  };
+
+  if (loading) {
+    return (
+      <div className="bg-white rounded-lg shadow-md p-4 w-full max-w-2xl mx-auto flex justify-center items-center">
+        <p className="text-gray-500">Cargando productos...</p>
+      </div>
+    );
+  }
+
+  if (!products.length) {
+    return (
+      <div className="bg-white rounded-lg shadow-md p-4 w-full max-w-2xl mx-auto flex justify-center items-center">
+        <p className="text-red-500">No se encontraron productos.</p>
+      </div>
+    );
+  }
+
+  const product = products[current];
+
+  return (
+    <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-md mx-auto flex flex-col items-center">
+      <h3 className="text-xl font-bold mb-4 text-center">Producto destacado</h3>
+      <div className="flex items-center gap-4 w-full">
+        <button
+          onClick={handlePrev}
+          className="bg-gray-200 hover:bg-gray-300 rounded-full p-2 text-xl"
+          aria-label="Anterior"
+        >
+          &#8592;
+        </button>
+        <div className="flex-1 flex flex-col items-center">
+          <img
+            src={product.image}
+            alt={product.title}
+            className="w-32 h-32 object-contain mb-2"
+          />
+          <h4 className="font-semibold text-lg text-center mb-1">{product.title}</h4>
+          <p className="text-blue-600 font-bold text-lg mb-1">${product.price}</p>
+          <p className="text-gray-600 text-sm text-center mb-2 line-clamp-2">{product.description}</p>
+          <span className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs">{product.category}</span>
+        </div>
+        <button
+          onClick={handleNext}
+          className="bg-gray-200 hover:bg-gray-300 rounded-full p-2 text-xl"
+          aria-label="Siguiente"
+        >
+          &#8594;
+        </button>
+      </div>
+    </div>
+  );
+}
